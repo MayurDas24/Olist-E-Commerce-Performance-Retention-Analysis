@@ -1,0 +1,18 @@
+# Secrets — never commit real credentials
+.env
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Raw dataset (large files — instructions to download in README instead)
+data/raw/*.csv
+
+# OS/editor junk
+.DS_Store
+.vscode/
+*.log
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
