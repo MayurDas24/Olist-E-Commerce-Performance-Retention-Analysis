@@ -1,174 +1,332 @@
-# Seller & GMV Performance Intelligence System
-### An end-to-end Business Analytics project on the Olist Brazilian E-Commerce dataset
+# 🛒 Seller & GMV Performance Intelligence System
+
+### End-to-End Business Analytics Pipeline | MySQL • Python • Power BI • Statistics • GenAI
 
 [![SQL](https://img.shields.io/badge/SQL-MySQL-blue)]()
 [![Python](https://img.shields.io/badge/Python-Pandas%20%7C%20SciPy-blue)]()
-[![Dashboard](https://img.shields.io/badge/Dashboard-Power%20BI-yellow)]()
-[![GenAI](https://img.shields.io/badge/GenAI-Gemini%20API-green)]()
+[![PowerBI](https://img.shields.io/badge/Dashboard-Power%20BI-yellow)]()
+[![Gemini](https://img.shields.io/badge/GenAI-Gemini-green)]()
 
 ---
 
-## The Question
+## 📌 Overview
 
-> **Why is Olist's customer repeat-purchase rate so low, and what actually drives it?**
+This project investigates one fundamental business question:
 
-Rather than stopping at a dashboard of KPIs, this project runs a full root-cause investigation: four competing hypotheses are tested with formal statistical methods, two are ruled out, and one is confirmed as the dominant, actionable driver.
+> **Why do only 3% of Olist customers make a second purchase, and what actually drives customer retention?**
 
-## The Headline Finding
+Instead of building another KPI dashboard, this project performs a complete analytics workflow:
 
-Overall repeat-purchase rate: **3.00%** (2,801 of 93,358 customers ever placed a second order) — well below typical e-commerce benchmarks.
+- Data Engineering
+- SQL Analytics
+- Statistical Hypothesis Testing
+- Power BI Dashboard
+- AI-generated Executive Insights
 
-| Hypothesis Tested | Result | p-value |
-|---|---|---|
-| Delivery lateness | Real but small effect (3.05% on-time vs 2.49% late) | 0.007 |
-| First-order review score | **No meaningful relationship** (flat 2.96%–3.32% across 1–5 stars) | 0.139 |
-| **Product category** | **Dominant driver — ~5x spread** (1.7% to 8.7% across categories) | ~0.0000 |
-| Customer state/geography | Moderate, secondary effect (~2.4x spread) | significant |
-
-**Conclusion:** Olist's retention problem is structural and category-driven — not a logistics or satisfaction problem. The data rules out "fix delivery speed" and "improve reviews" as primary levers; the actionable recommendation is category-specific cross-sell and re-engagement strategy.
-
-Full write-up: [`root_cause_writeup.md`](./root_cause_writeup.md)
+The goal is to move beyond reporting and identify **actionable business drivers** using data.
 
 ---
 
-## Project Architecture
+# 🚀 Key Business Findings
+
+### Overall Repeat Purchase Rate
+
+> **3.00%**
+> (2,801 repeat customers out of 93,358)
+
+---
+
+### Root Cause Analysis
+
+| Hypothesis | Result | p-value |
+|------------|--------|---------|
+| Delivery Lateness | Small impact | 0.007 |
+| Review Score | ❌ No significant relationship | 0.139 |
+| Product Category | ✅ Strongest driver (~5x variation) | <0.001 |
+| Customer Geography | Moderate effect | Significant |
+
+### Business Conclusion
+
+The retention problem is **category-driven**, not a logistics or customer satisfaction problem.
+
+Instead of investing heavily in delivery improvements, Olist would likely gain more value from:
+
+- Category-specific cross-selling
+- Personalized re-engagement campaigns
+- Product-focused retention strategies
+
+---
+
+# 📊 Dashboard
+
+The Power BI dashboard includes:
+
+- 📈 Monthly GMV Trend
+- 📦 Top Categories by Revenue
+- 🏪 Seller Performance Scorecard
+- 🤖 AI Business Summary
+
+---
+
+# 🏗 Project Architecture
 
 ```
-Raw CSVs (Kaggle: Olist Brazilian E-Commerce Dataset)
+Kaggle Dataset (CSV)
         │
         ▼
-Python ETL (Pandas) — cleaning, FK validation, date parsing
+Python ETL (Pandas)
         │
         ▼
-MySQL Database — 9 normalized tables, indexed, FK-constrained
+MySQL Relational Database
+(9 Tables + Foreign Keys)
         │
         ▼
-Advanced SQL Analytics — CTEs, window functions, views
+Advanced SQL Analytics
+(CTEs • Window Functions • Views)
         │
-        ├──► Power BI Dashboard (GMV trend, category & seller performance)
-        ├──► Python/SciPy Hypothesis Testing (chi-square, z-tests)
-        └──► Gemini API — auto-generated business insight summaries
+ ┌──────┼──────────────┐
+ ▼      ▼              ▼
+Power BI    Statistics    Gemini AI
+Dashboard   (SciPy)      Executive Summary
 ```
 
 ---
 
-## Tech Stack
+# ⚙ Tech Stack
 
-| Layer | Tools |
-|---|---|
-| Database | MySQL (CTEs, window functions, views, foreign keys, indexing) |
-| ETL / Data Wrangling | Python, Pandas, SQLAlchemy |
-| Statistics | SciPy (chi-square tests, two-proportion z-test) |
-| Visualization | Power BI, Matplotlib, Seaborn |
-| GenAI | Google Gemini API |
+| Layer | Technologies |
+|--------|--------------|
+| Database | MySQL |
+| ETL | Python, Pandas, SQLAlchemy |
+| Analytics | SQL, Window Functions, CTEs |
+| Statistics | SciPy, Statsmodels |
+| Visualization | Power BI, Matplotlib |
+| AI | Google Gemini API |
 | Notebook | Jupyter |
 
 ---
 
-## Dataset
-
-[Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) — ~99,000 orders (2016–2018), 9 relational tables (orders, customers, sellers, products, payments, reviews, geolocation).
-
----
-
-## Repository Structure
+# 📂 Project Structure
 
 ```
-├── sql/
-│   ├── 01_schema.sql                    # Database schema (9 tables, FKs, indexes)
-│   ├── 02_module1_analytics.sql         # GMV, seller ranking, cohort retention, RFM, views
-│   └── 03_root_cause_retention.sql      # Root-cause hypothesis queries
-├── scripts/
-│   ├── load_data.py                     # CSV → MySQL ETL pipeline
-│   ├── stats_analysis.py                # Chi-square & z-test hypothesis testing
-│   └── genai_insights.py                # Gemini API business insight generator
-├── notebooks/
-│   └── olist_root_cause_analysis.ipynb  # Full analysis with visuals (Matplotlib/Seaborn)
+.
 ├── dashboard/
-│   └── olist_dashboard.pbix             # Power BI dashboard
-├── data/raw/                            # Raw CSVs (not committed — see setup below)
-├── root_cause_writeup.md                # Full investigation write-up
-├── .env.example                         # Environment variable template
+│   └── olist_dashboard.pbix
+│
+├── notebooks/
+│   └── olist_root_cause_analysis.ipynb
+│
+├── scripts/
+│   ├── load_data.py
+│   ├── stats_analysis.py
+│   └── genai_insights.py
+│
+├── sql/
+│   ├── 01_schema.sql
+│   ├── 02_module1_analytics.sql
+│   └── 03_root_cause_retention.sql
+│
+├── data/
+│   └── raw/
+│
+├── root_cause_writeup.md
+├── .env.example
 └── README.md
 ```
 
 ---
 
-## Setup & Reproduction
+# 🔍 Analytics Performed
 
-**1. Clone the repo**
+### SQL
+
+- Window Functions
+- CTEs
+- Nested CTEs
+- Views
+- Ranking
+- Cohort Analysis
+- RFM Segmentation
+- Foreign Keys
+- Indexing
+
+---
+
+### Statistical Validation
+
+- Chi-Square Test
+- Two-Proportion Z-Test
+- Hypothesis Testing
+- Effect Size Interpretation
+
+---
+
+# 🤖 GenAI Insight Generator
+
+The project includes a Python script that:
+
+- Reads KPIs directly from MySQL
+- Sends them to Gemini
+- Produces an executive-ready business summary
+
+Example:
+
+```
+Monthly GMV declined 4.1% from the previous month.
+Health & Beauty continues to generate the highest revenue.
+Customer retention remains low (3%), suggesting significant opportunity
+through category-specific retention campaigns.
+```
+
+---
+
+# 📈 Dataset
+
+**Brazilian E-Commerce Public Dataset by Olist**
+
+- ~99,000 Orders
+- 93,000+ Customers
+- 9 Relational Tables
+- 2016–2018
+
+Dataset:
+
+https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
 ```bash
 git clone https://github.com/MayurDas24/Olist-E-Commerce-Performance-Retention-Analysis.git
+
 cd Olist-E-Commerce-Performance-Retention-Analysis
 ```
 
-**2. Download the dataset**
-Get the CSVs from [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) and place them in `data/raw/`.
+---
 
-**3. Set up Python environment**
+## Create Virtual Environment
+
 ```bash
 python -m venv venv
-venv\Scripts\activate          # Windows
-pip install pandas numpy sqlalchemy mysql-connector-python scipy statsmodels matplotlib seaborn jupyter python-dotenv google-genai
+
+venv\Scripts\activate
 ```
 
-**4. Configure environment variables**
+---
+
+## Install Dependencies
+
 ```bash
-cp .env.example .env
-# Edit .env with your MySQL credentials and Gemini API key
+pip install -r requirements.txt
 ```
 
-**5. Create the MySQL database and schema**
+---
+
+## Configure Environment
+
+Create a `.env`
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=olist_ecommerce
+
+GEMINI_API_KEY=your_api_key
+```
+
+---
+
+## Create Database
+
 ```sql
 CREATE DATABASE olist_ecommerce;
 ```
-Then run `sql/01_schema.sql` in MySQL Workbench.
 
-**6. Load the data**
+Run
+
+```
+sql/01_schema.sql
+```
+
+---
+
+## Load Dataset
+
 ```bash
 python scripts/load_data.py
 ```
 
-**7. Run the analytics**
-```sql
--- Run in MySQL Workbench:
+---
+
+## Run SQL Analytics
+
+Execute
+
+```
 sql/02_module1_analytics.sql
+
 sql/03_root_cause_retention.sql
 ```
-```bash
-# Statistical validation:
-python scripts/stats_analysis.py
 
-# GenAI insight summary:
+inside MySQL Workbench.
+
+---
+
+## Run Statistical Analysis
+
+```bash
+python scripts/stats_analysis.py
+```
+
+---
+
+## Generate AI Insights
+
+```bash
 python scripts/genai_insights.py
 ```
 
-**8. Explore the notebook**
-```bash
-jupyter notebook notebooks/olist_root_cause_analysis.ipynb
+---
+
+## Open Dashboard
+
+Open
+
+```
+dashboard/olist_dashboard.pbix
 ```
 
-**9. Open the dashboard**
-Open `dashboard/olist_dashboard.pbix` in Power BI Desktop.
+using Power BI Desktop.
 
 ---
 
-## Key SQL Techniques Demonstrated
-- Window functions: `RANK()`, `LAG()`, `NTILE()`, `ROW_NUMBER()`
-- CTEs (including multi-layered/nested CTEs for cohort analysis)
-- Views for BI-tool consumption
-- Foreign-key-constrained relational schema with indexing for query performance
-- RFM customer segmentation
+# 💡 Skills Demonstrated
 
-## Key Statistical Techniques Demonstrated
-- Chi-square test of independence (categorical vs categorical)
-- Two-proportion z-test
-- Hypothesis testing with explicit significance thresholds (α = 0.05)
-- Effect size interpretation alongside statistical significance (avoiding the "significant but trivial" trap)
+- Business Analytics
+- SQL
+- Data Modeling
+- ETL
+- Statistical Testing
+- Dashboard Design
+- AI Integration
+- Data Storytelling
 
 ---
 
-## Author
+# 👨‍💻 Author
 
 **Mayur R Das**
-[GitHub](https://github.com/MayurDas24) · [LinkedIn](https://linkedin.com/in/mayurrdas24)
+
+GitHub:
+https://github.com/MayurDas24
+
+LinkedIn:
+https://linkedin.com/in/mayurrdas24
+
+---
+
+⭐ If you found this project useful, consider giving it a star!
